@@ -1,0 +1,37 @@
+{
+	"name": "@serve-tools/postgres-linux-x64-musl",
+	"type": "module",
+	"version": "0.1.0",
+	"description": "PostgreSQL 18.4.0 binaries for linux-x64-musl (self-contained, no download at install or runtime)",
+	"license": "PostgreSQL",
+	"author": "Jonathan Neal",
+	"os": [
+		"linux"
+	],
+	"cpu": [
+		"x64"
+	],
+	"libc": [
+		"musl"
+	],
+	"publishConfig": {
+		"access": "public",
+		"provenance": true,
+		"registry": "https://registry.npmjs.org/"
+	},
+	"files": [
+		"build-manifest.json",
+		"LICENSE.md",
+		"pg",
+		"README.md"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/serve-tools/postgres.git",
+		"directory": "binaries/linux-x64-musl"
+	},
+	"homepage": "https://github.com/serve-tools/postgres#readme",
+	"bugs": {
+		"url": "https://github.com/serve-tools/postgres/issues"
+	}
+}

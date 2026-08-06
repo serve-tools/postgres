@@ -1,0 +1,79 @@
+name: Stage npm release
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: Successful release-candidate workflow run ID
+        required: true
+        type: string
+      version:
+        description: Loader distribution version
+        required: true
+        type: string
+      tag:
+        description: npm dist-tag for the stage
+        required: true
+        default: latest
+        type: string
+      confirmation:
+        description: Type "stage <version>"
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-stage
+  cancel-in-progress: false
+
+jobs:
+  stage:
+    name: Verify and stage candidate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: npm
+    steps:
+      - id: candidate
+        name: Verify completed candidate run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.candidate_run_id }}
+        run: |
+          conclusion="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" --jq .conclusion)"
+          event="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" --jq .event)"
+          name="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" --jq .name)"
+          head_sha="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" --jq .head_sha)"
+          if [[ "$conclusion" != "success" || "$event" != "workflow_dispatch" || "$name" != "Release candidate" ]]; then
+            echo "Run $RUN_ID is not a successful release candidate" >&2
+            exit 1
+          fi
+          echo "head_sha=$head_sha" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          ref: ${{ steps.candidate.outputs.head_sha }}
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - run: npm install --global npm@11.18.0
+      - run: npm ci --ignore-scripts --workspaces=false
+      - uses: actions/download-artifact@v7
+        with:
+          name: release-candidate
+          path: release
+          run-id: ${{ inputs.candidate_run_id }}
+          github-token: ${{ github.token }}
+      - run: npm run candidate:check
+      - name: Stage packages through npm trusted publishing
+        env:
+          CONFIRMATION: ${{ inputs.confirmation }}
+          SOURCE_COMMIT: ${{ steps.candidate.outputs.head_sha }}
+          STAGE_TAG: ${{ inputs.tag }}
+          VERSION: ${{ inputs.version }}
+        run: npm run candidate:stage -- "--version=$VERSION" "--tag=$STAGE_TAG" "--confirmation=$CONFIRMATION"

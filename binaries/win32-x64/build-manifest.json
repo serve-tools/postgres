@@ -1,0 +1,35 @@
+{
+	"formatVersion": 1,
+	"distribution": "0.1.0",
+	"postgresql": "18.4.0",
+	"platform": "win32-x64",
+	"target": {
+		"triple": "x86_64-pc-windows-msvc",
+		"os": "win32",
+		"cpu": "x64"
+	},
+	"archive": {
+		"url": "https://github.com/theseus-rs/postgresql-binaries/releases/download/18.4.0/postgresql-18.4.0-x86_64-pc-windows-msvc.tar.gz",
+		"sha256": "4099dcf71c74bed82736e17928d07591df0efee8f802449533b9557d99ae7988"
+	},
+	"payload": {
+		"profile": "runtime-v1",
+		"excluded": [
+			"include/**",
+			"**/*.a",
+			"**/*.lib",
+			"**/*.pc",
+			"StackBuilder/**",
+			"bin/stackbuilder.exe",
+			"bin/wx*.dll"
+		],
+		"integrity": {
+			"algorithm": "sha256-tree-v1",
+			"entries": 1542,
+			"bytes": 101704139,
+			"sha256": "43fc964627e5f1147c8de2d65c486dc1b235fbe04f38918e36ffb0899615daf0"
+		}
+	},
+	"upstream": "https://github.com/theseus-rs/postgresql-binaries",
+	"builder": "https://github.com/zonkyio/embedded-postgres-binaries"
+}
