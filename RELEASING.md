@@ -19,11 +19,12 @@ A clean anonymous install and a real initdb/start/SQL/stop cycle verified the
 public packages.
 
 The bootstrap token was revoked immediately after verification. Do not repeat
-the bootstrap procedure. Configure
-[npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for
-`publish.yml` and the `npm` environment on every package. Require two-factor
-authentication and disallow token publication. All subsequent releases follow
-the staged workflow below and publish provenance through GitHub OIDC.
+the bootstrap procedure. [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/)
+is configured on every package for `serve-tools/postgres`, `publish.yml`, and
+the `npm` environment, with only `npm stage publish` permitted. Publishing
+access requires two-factor authentication and disallows bypass tokens. All
+subsequent releases follow the staged workflow below and publish provenance
+through GitHub OIDC.
 
 Repository metadata must exactly match the public repository because npm uses
 it when [generating provenance](https://docs.npmjs.com/generating-provenance-statements/).
