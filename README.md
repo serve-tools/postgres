@@ -19,9 +19,8 @@ dual distribution of `@http3-server/native` can be named
 
 The public source repository is
 [`serve-tools/postgres`](https://github.com/serve-tools/postgres), and the
-`@serve-tools` npm organization exists. The package identities have not yet
-been published; the first release will bootstrap them from one verified
-candidate.
+six-package `0.1.0` family is published under the `@serve-tools` npm
+organization.
 
 ## Guarantees
 
@@ -36,8 +35,8 @@ candidate.
 - Packed tarballs become one immutable release candidate. Candidate verification
   checks their digests, contents, metadata, dependency graph, source lock, and
   publication order before any staging operation.
-- The release workflow stages platform packages before the loader and cannot
-  perform a direct publication.
+- After the one-time package-identity bootstrap, the release workflow stages
+  platform packages before the loader and cannot perform a direct publication.
 
 ## Supported targets
 
@@ -53,7 +52,7 @@ distributions such as Alpine Linux are not currently supported.
 
 ## Use
 
-After publication, install the loader normally:
+Install the loader normally:
 
 ```sh
 npm install @serve-tools/postgres
@@ -127,10 +126,11 @@ live upstream values. See [CONTRIBUTING.md](./CONTRIBUTING.md),
 [SECURITY.md](./SECURITY.md), and [RELEASING.md](./RELEASING.md) for the full
 maintenance and release contracts.
 
-## First publication
+## Publication
 
 Repository provenance metadata is configured for
 `https://github.com/serve-tools/postgres`, and `npm run check:publish` verifies
-that identity. The first publication must bootstrap the npm package identities
-before trusted publishing can be attached. Subsequent releases use the staged,
-provenance-aware workflow documented in [RELEASING.md](./RELEASING.md).
+that identity. The package identities were bootstrapped at `0.1.0` from one
+verified release candidate. Subsequent releases use the staged,
+provenance-aware trusted-publishing workflow documented in
+[RELEASING.md](./RELEASING.md).

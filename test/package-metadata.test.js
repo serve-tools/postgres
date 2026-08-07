@@ -17,7 +17,7 @@ test("the workspace and package-family names are unambiguous", () => {
 	assert.match(readme, /Serve Tools.*umbrella project/);
 	assert.match(readme, /@serve-tools\/http3-native/);
 	assert.match(readme, /https:\/\/github\.com\/serve-tools\/postgres/);
-	assert.match(readme, /package identities have not yet\s+been published/i);
+	assert.match(readme, /six-package `0\.1\.0` family is published/i);
 });
 
 test("public-facing documentation contains no prerelease framing", () => {

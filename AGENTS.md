@@ -9,9 +9,8 @@ may be named `@serve-tools/http3-native`.
 
 The public source repository is `https://github.com/serve-tools/postgres`, the
 `serve-tools` npm organization exists, and repository provenance metadata is
-configured. The npm package identities have not been published. Never claim
-that a package is published or weaken a check to work around remaining setup.
-The protected `npm` GitHub environment is reserved for `publish.yml`.
+configured. The six package identities are public at `0.1.0`. The protected
+`npm` GitHub environment is reserved for `publish.yml`.
 
 ## Three verified layers
 
@@ -52,7 +51,8 @@ by npm.
 - `createEphemeralCluster()` is disposable test/development infrastructure, not
   a durable database service.
 - npm publication uses one verified candidate, provenance, trusted publishing,
-  a protected environment, and staging. Never issue a direct `npm publish`.
+  a protected environment, and staging. The direct, token-based `0.1.0`
+  package-identity bootstrap was a one-time exception; never repeat it.
 
 ## Required validation
 
