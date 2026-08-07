@@ -1,0 +1,56 @@
+{
+	"name": "@serve-tools/postgres",
+	"type": "module",
+	"version": "0.1.0",
+	"description": "Self-contained PostgreSQL binaries for Node.js — no Docker, no postinstall, no runtime downloads",
+	"license": "MIT-0",
+	"engines": {
+		"node": ">=22"
+	},
+	"author": "Jonathan Neal",
+	"sideEffects": false,
+	"publishConfig": {
+		"access": "public",
+		"provenance": true,
+		"registry": "https://registry.npmjs.org/"
+	},
+	"keywords": [
+		"postgresql",
+		"postgres",
+		"embedded",
+		"database",
+		"testing"
+	],
+	"types": "./index.d.ts",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"import": "./index.js",
+			"default": "./index.js"
+		}
+	},
+	"files": [
+		"index.js",
+		"index.d.ts",
+		"LICENSE.md",
+		"platforms.js",
+		"postgresql-version.js",
+		"README.md"
+	],
+	"optionalDependencies": {
+		"@serve-tools/postgres-darwin-arm64": "0.1.0",
+		"@serve-tools/postgres-darwin-x64": "0.1.0",
+		"@serve-tools/postgres-linux-arm64-gnu": "0.1.0",
+		"@serve-tools/postgres-linux-x64-gnu": "0.1.0",
+		"@serve-tools/postgres-win32-x64": "0.1.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/serve-tools/postgres.git",
+		"directory": "packages/postgres"
+	},
+	"homepage": "https://github.com/serve-tools/postgres#readme",
+	"bugs": {
+		"url": "https://github.com/serve-tools/postgres/issues"
+	}
+}

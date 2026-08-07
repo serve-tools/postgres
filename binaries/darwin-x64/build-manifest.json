@@ -1,0 +1,31 @@
+{
+	"formatVersion": 1,
+	"distribution": "0.1.0",
+	"postgresql": "18.4.0",
+	"platform": "darwin-x64",
+	"target": {
+		"triple": "x86_64-apple-darwin",
+		"os": "darwin",
+		"cpu": "x64"
+	},
+	"archive": {
+		"url": "https://github.com/theseus-rs/postgresql-binaries/releases/download/18.4.0/postgresql-18.4.0-x86_64-apple-darwin.tar.gz",
+		"sha256": "cbc38067a795d10bbddc730e61c835df0b351c36a7bd2544d388790fcf50aa4d"
+	},
+	"payload": {
+		"profile": "runtime-v1",
+		"excluded": [
+			"include/**",
+			"**/*.a",
+			"**/*.lib",
+			"**/*.pc"
+		],
+		"integrity": {
+			"algorithm": "sha256-tree-v1",
+			"entries": 411,
+			"bytes": 32083141,
+			"sha256": "cbc14acf9fb61f9628125a3a2c374cd8270c97adaca67c4dcfc9836e38a19524"
+		}
+	},
+	"upstream": "https://github.com/theseus-rs/postgresql-binaries"
+}

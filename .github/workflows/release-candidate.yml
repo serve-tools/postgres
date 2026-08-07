@@ -1,0 +1,73 @@
+name: Release candidate
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-candidate
+  cancel-in-progress: false
+
+jobs:
+  pack:
+    name: Pack immutable candidate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: npm install --global npm@11.18.0
+      - run: npm ci --ignore-scripts --workspaces=false
+      - run: npm run verify
+      - run: npm run import -- --all
+      - name: Verify imports reproduce committed package metadata
+        run: git diff --exit-code
+      - run: npm run check:release
+      - run: npm run check:publish
+      - run: npm run candidate:pack -- --release
+      - uses: actions/upload-artifact@v6
+        with:
+          name: release-candidate
+          path: release/
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 14
+
+  smoke:
+    name: Candidate smoke (${{ matrix.platform }}, Node ${{ matrix.node }})
+    needs: pack
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, macos-15-intel, ubuntu-24.04-arm, ubuntu-24.04, windows-2025]
+        node: [22, 24, 26]
+        include:
+          - { runner: macos-15, platform: darwin-arm64 }
+          - { runner: macos-15-intel, platform: darwin-x64 }
+          - { runner: ubuntu-24.04-arm, platform: linux-arm64-gnu }
+          - { runner: ubuntu-24.04, platform: linux-x64-gnu }
+          - { runner: windows-2025, platform: win32-x64 }
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          package-manager-cache: false
+      - run: npm install --global npm@11.18.0
+      - run: npm ci --ignore-scripts --workspaces=false
+      - uses: actions/download-artifact@v7
+        with:
+          name: release-candidate
+          path: release
+      - run: npm run candidate:test

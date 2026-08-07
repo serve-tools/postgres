@@ -1,0 +1,5 @@
+.cache/
+node_modules/
+binaries/*/pg/
+binaries/*/.binary-import-*/
+release/

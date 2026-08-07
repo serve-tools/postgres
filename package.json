@@ -1,0 +1,60 @@
+{
+	"name": "@serve-tools/postgres-workspace",
+	"private": true,
+	"type": "module",
+	"version": "0.0.0",
+	"packageManager": "npm@11.18.0",
+	"description": "Private workspace for the @serve-tools/postgres package family",
+	"license": "MIT-0",
+	"author": "Jonathan Neal",
+	"engines": {
+		"node": ">=22"
+	},
+	"devEngines": {
+		"runtime": {
+			"name": "node",
+			"version": ">=22.14.0",
+			"onFail": "error"
+		},
+		"packageManager": {
+			"name": "npm",
+			"version": ">=11.5.1",
+			"onFail": "error"
+		}
+	},
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"check:release": "node scripts/check-release.js",
+		"check:publish": "node scripts/check-release.js --publish",
+		"check:workspace": "node scripts/check-release.js --metadata-only",
+		"configure:repository": "node scripts/configure-repository.js",
+		"candidate:pack": "node scripts/pack-release.js --destination=release",
+		"candidate:check": "node scripts/verify-candidate.js release",
+		"candidate:test": "node scripts/test-candidate.js release",
+		"candidate:stage": "node scripts/stage-candidate.js release",
+		"pack:check": "node scripts/pack-release.js --dry-run",
+		"lint": "biome check",
+		"lint:fix": "biome check --write",
+		"typecheck": "tsc --noEmit",
+		"import": "node scripts/import-binaries.js",
+		"smoke": "node scripts/smoke.js",
+		"source:update": "node scripts/update-source-lock.js",
+		"version:set": "node scripts/set-version.js",
+		"test": "node --test test/*.test.js",
+		"verify": "npm run lint && npm run typecheck && npm test && npm run check:workspace"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.13",
+		"typescript": "7.0.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/serve-tools/postgres.git"
+	},
+	"homepage": "https://github.com/serve-tools/postgres#readme",
+	"bugs": {
+		"url": "https://github.com/serve-tools/postgres/issues"
+	}
+}

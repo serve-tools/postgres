@@ -1,0 +1,7 @@
+{
+	"formatVersion": 1,
+	"npmScope": "@serve-tools",
+	"repository": "https://github.com/serve-tools/postgres",
+	"publishWorkflow": "publish.yml",
+	"npmEnvironment": "npm"
+}

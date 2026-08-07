@@ -1,0 +1,21 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
+	"files": {
+		"includes": [
+			"**",
+			"!binaries/**/pg",
+			"!binaries/**/build-manifest.json",
+			"!binaries/**/package.json",
+			"!.cache",
+			"!release"
+		]
+	},
+	"formatter": {
+		"indentStyle": "tab"
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double"
+		}
+	}
+}

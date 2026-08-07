@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"lib": ["ESNext"],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"noEmit": true,
+		"strict": true,
+		"target": "ES2024"
+	},
+	"include": ["packages/postgres/index.d.ts", "test/types.ts"]
+}

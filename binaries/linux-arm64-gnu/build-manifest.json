@@ -1,0 +1,32 @@
+{
+	"formatVersion": 1,
+	"distribution": "0.1.0",
+	"postgresql": "18.4.0",
+	"platform": "linux-arm64-gnu",
+	"target": {
+		"triple": "aarch64-unknown-linux-gnu",
+		"os": "linux",
+		"cpu": "arm64",
+		"libc": "glibc"
+	},
+	"archive": {
+		"url": "https://github.com/theseus-rs/postgresql-binaries/releases/download/18.4.0/postgresql-18.4.0-aarch64-unknown-linux-gnu.tar.gz",
+		"sha256": "569984d426365c6ca3c197d2b3a999b73161ff1f3abc963824a8c3624620e5dd"
+	},
+	"payload": {
+		"profile": "runtime-v1",
+		"excluded": [
+			"include/**",
+			"**/*.a",
+			"**/*.lib",
+			"**/*.pc"
+		],
+		"integrity": {
+			"algorithm": "sha256-tree-v1",
+			"entries": 425,
+			"bytes": 31417426,
+			"sha256": "4ae2086a2180e0209e725eacf430d028e41d9d3cc65d5cfe5eb88f823f90ea91"
+		}
+	},
+	"upstream": "https://github.com/theseus-rs/postgresql-binaries"
+}
