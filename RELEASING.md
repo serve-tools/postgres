@@ -18,7 +18,8 @@ then the loader, with provenance disabled for that local token-based operation.
 A clean anonymous install and a real initdb/start/SQL/stop cycle verified the
 public packages.
 
-Do not repeat the bootstrap procedure. Revoke its token, then configure
+The bootstrap token was revoked immediately after verification. Do not repeat
+the bootstrap procedure. Configure
 [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for
 `publish.yml` and the `npm` environment on every package. Require two-factor
 authentication and disallow token publication. All subsequent releases follow
