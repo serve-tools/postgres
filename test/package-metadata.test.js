@@ -50,6 +50,18 @@ test("loader exactly pins each independently versioned platform package", () => 
 	assert.notEqual(loader.version, readSourceLock(ROOT).postgresql);
 });
 
+test("the lockfile resolves every published platform package", () => {
+	const lockfile = readJson("package-lock.json");
+	for (const key of Object.keys(PLATFORMS)) {
+		const platformPackage = readJson(`binaries/${key}/package.json`);
+		const locked = lockfile.packages[`node_modules/${platformPackage.name}`];
+
+		assert.equal(locked?.version, platformPackage.version, key);
+		assert.match(locked.resolved, /^https:\/\/registry\.npmjs\.org\//, key);
+		assert.match(locked.integrity, /^sha512-/, key);
+	}
+});
+
 test("published packages have no lifecycle scripts", () => {
 	assert.ok(!("scripts" in readJson("packages/postgres/package.json")));
 	for (const key of Object.keys(PLATFORMS)) {
